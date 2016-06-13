@@ -6,30 +6,38 @@
  * @author boneff
  */
 class WebController extends BoardController {
+    
+    public function __construct() {
+        $boardGenerator = new BoardGenerator(Config::instance());
+        $this->board = $boardGenerator->generateBoard();
+        $this->game = new Game();
+    }
 
     public function index() {
-        session_start();
-        if (!isset($_SESSION['board'])) {
-            $boardGenerator = new BoardGenerator(Config::instance());
-            $this->board = $boardGenerator->generateBoard();
-            $_SESSION['board'] = $this->board;
-        }
-
-        $this->board = $_SESSION['board'] ;
+        $isHit = '';
         $arrAxisLabels = $this->generateBoardLabels();
         $coordinates = isset($_REQUEST['coordinates']) ? $_REQUEST['coordinates'] : [];
-
-        if(count($coordinates) > 0) {
+            
+        if(count($coordinates) == 2) {
             $keyX = array_search($coordinates[0], $arrAxisLabels['x']);
             $keyY = array_search($coordinates[1], $arrAxisLabels['y']);
-            var_dump($keyY, $keyX);
             if ($keyX != false && $keyY != false) {
-                $this->openPosition($keyX, $keyY);
+               $isHit = $this->openPosition($keyX, $keyY);
             }
         }
-
-        $_SESSION['board'] = $this->drawBoard();
-        $output = $_SESSION['board'];
-        require_once '/templates/webView.php';
+        
+        switch ($isHit) {
+            case (isset($isHit) && $isHit == BoardPosition::FREE) :
+                $output = BoardMessage::MISS;
+                break;
+            case (isset($isHit) && $isHit == BoardPosition::OCCUPPIED) :
+                $output = BoardMessage::HIT;
+                break;
+            default: 
+                $output = BoardMessage::NONE;
+        }
+        
+        $output .= PHP_EOL . $this->drawBoard(true);
+        require_once 'templates/webView.php';
     }
 }

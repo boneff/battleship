@@ -17,7 +17,7 @@ class BoardController {
      */
     protected $output;
 
-    protected $defaultView = '/templates/webView.php';
+    protected $defaultView = 'templates/webView.php';
 
     public function index() {
 
@@ -59,6 +59,8 @@ class BoardController {
         $boardPosition = $this->board->getBoardPosition($x, $y);
         $boardPosition->setIsClicked(true);
         $this->board->setBoardPosition($boardPosition);
+        
+        return $boardPosition->getStatus();
     }
 
     protected function generateBoardLabels() {

@@ -9,6 +9,6 @@ class ConsoleController extends BoardController {
 
     public function index() {
         $output = $this->output;
-        require_once '/templates/consoleView.php';
+        require_once 'templates/consoleView.php';
     }
 }
