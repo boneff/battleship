@@ -57,7 +57,7 @@ class Board {
      * 
      * @param int $coordinateX
      * @param int $coordinateY
-     * @return type
+     * @return BoardPosition
      * 
      */
     public function getBoardPosition($coordinateX, $coordinateY) {

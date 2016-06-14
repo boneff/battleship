@@ -5,9 +5,10 @@
  *
  * @author boneff
  */
-class ConsoleController extends BoardController {
+class ConsoleController {
 
     public function index() {
+        $coordinates = getopt('c:') != false  ? getopt('c:') : [];
         $output = $this->output;
         require_once 'templates/consoleView.php';
     }

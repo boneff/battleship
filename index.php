@@ -5,18 +5,17 @@
 
     require_once 'config/Autoload.php';
     if(php_sapi_name() == "cli") {
-        $coordinates = getopt('c:') != false  ? getopt('c:') : [];
         $options = [
             "controller" => "Console",
             "action"     => "index",
-            "params"     => [ 'coordinates' => $coordinates ]
+            "params"     => [ ]
         ];
     } else {
-        $coordinates = isset($_REQUEST['coordinates']) ? $_REQUEST['coordinates'] : [];
+        session_start();
         $options = [
             "controller" => "Web",
             "action"     => "index",
-            "params"     => [ 'coordinates' => $coordinates ]
+            "params"     => [ ]
         ];
     }
 

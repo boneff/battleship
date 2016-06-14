@@ -25,7 +25,7 @@ class BoardGenerator {
      * @param array $config
      */
     public function __construct(Config $config) {
-        $this->config = Config::instance();
+        $this->config = $config;
         $this->boardWidth = $this->config->getBoardSize();
         $this->boardHeight = $this->config->getBoardSize();
     }
@@ -57,7 +57,12 @@ class BoardGenerator {
             }           
         }
     }
-    
+    /**
+     * Finds free coordinates and addes them to current ship instance
+     * 
+     * @param Ship $ship
+     * @return type
+     */
     private function generateShipCoordinates($ship) {
         $freePositions = [];
         /**
@@ -91,6 +96,7 @@ class BoardGenerator {
                 break;
         }
         
+        // depending on orientation check for nearest free positions
         if ($ship->getOrientation() == Ship::HORIZONTAL_ORIENTATION) {
             for ($i = $startCoordinate; $i < $endCoordinate; $i ++) {
                 $boardPosition = $this->board->getBoardPosition($i, $arrStartingCoordinates['y']);

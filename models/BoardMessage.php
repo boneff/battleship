@@ -8,6 +8,7 @@ class BoardMessage {
    const MISS  = ' *** Miss *** ';
    const HIT   = ' *** Hit *** ';
    const SUNK  = ' *** Sunk *** ';
+   const ERROR  = ' *** Error *** ';
    const NONE  = '';
    
    private $lastMessage;

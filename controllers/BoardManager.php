@@ -5,26 +5,22 @@
  *
  * @author boneff
  */
-class BoardController {
+class BoardManager {
     /**
      *
      * @var Board 
      */
-    protected $board;
-    /**
-     *
-     * @var string 
-     */
-    protected $output;
-
-    protected $defaultView = 'templates/webView.php';
-
-    public function index() {
-
+    private $board;
+    
+    public function __construct(Board $board) {
+        $this->board = $board;
+    }  
+    
+    public function getBoard() {
+        return $this->board;
     }
 
-
-    protected function drawBoard($showHint = false) {
+    public function drawBoard($showHint = false) {
         $arrAxisLabels = $this->generateBoardLabels();
         $output = '  ' . implode(' ', $arrAxisLabels['y']) .  PHP_EOL;
 
@@ -52,7 +48,7 @@ class BoardController {
      * @param int x
      * @param int y
      */
-    protected function openPosition($x, $y) {
+    public function openPosition($x, $y) {
         /**
          * @var BoardPosition $boardPosition
          */
@@ -63,7 +59,7 @@ class BoardController {
         return $boardPosition->getStatus();
     }
 
-    protected function generateBoardLabels() {
+    public function generateBoardLabels() {
         // return 2 arrays with numbers and letters - used to label the board fields
         // chr(65) - returns uppercase A     
         if (Config::instance()->getBoardXLabelType() == 'numbers') {
