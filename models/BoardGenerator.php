@@ -116,7 +116,7 @@ class BoardGenerator {
         if(count($freePositions) == $shipSize) {
             foreach($freePositions as $boardPosition) {
                 $boardPosition->setStatus(BoardPosition::OCCUPPIED);
-                $ship->addCoordinate($boardPosition);
+                $ship->addBoardPositionCoordinate($boardPosition);
             }
         } else {
             return $this->generateShipCoordinates($ship);

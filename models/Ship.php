@@ -12,6 +12,7 @@ class Ship {
     private $type;
     private $orientation;
     private $isSunk;
+    private $hits;
     private $coordinates;
     
     /**
@@ -21,6 +22,7 @@ class Ship {
      */
     public function __construct($type, $size) {
         $this->size = $size;
+        $this->hits = 0;
         $this->type = $type;
         $this->orientation = rand(1,2);
         $this->isSunk = false;
@@ -30,10 +32,6 @@ class Ship {
         return $this->isSunk;
     }
 
-    public function setIsSunk($isSunk) {
-        $this->isSunk = $isSunk;
-    }
-    
     public function getOrientation() {
         return $this->orientation;
     }
@@ -54,14 +52,17 @@ class Ship {
         return $this->coordinates;
     }
 
-    public function setCoordinates($arrBoardPositions) {
-        $this->coordinates = $arrBoardPositions;
+    function checkIsHit($x, $y) {
+        $isHit = array_search([$x, $y], $this->coordinates);
+        if ($isHit !== false) {
+            $this->hits += 1;
+            unset($this->coordinate[$isHit]);
+            $this->isSunk = ($this->hits === $this->size) ? true : false;
+        }
+        return $isHit;
     }
-    
-    public function addCoordinate(BoardPosition $position) {
-        $this->coordinates[] = $position;
+
+    public function addBoardPositionCoordinate(BoardPosition $position) {
+        $this->coordinates[] = [$position->getCoordinateX(), $position->getCoordinateY()];
     }
-
-
-
 }

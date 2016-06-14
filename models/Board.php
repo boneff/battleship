@@ -63,6 +63,12 @@ class Board {
     public function getBoardPosition($coordinateX, $coordinateY) {
         return $this->boardPositions[$coordinateX][$coordinateY];
     }
+
+    public function removeBoardShip($index) {
+        if (array_key_exists($index, $this->boardShips)) {
+            unset ($this->boardShips[$index]);
+        }
+    }
     
     public function addBoardShip(Ship $boardShip) {
         $this->boardShips[] = $boardShip;

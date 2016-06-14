@@ -26,6 +26,10 @@ class Game {
         return $this->state;
     }
 
+    public function incrementMoves() {
+        $this->moves += 1;
+    }
+
     public function setMoves($moves) {
         $this->moves = $moves;
     }
