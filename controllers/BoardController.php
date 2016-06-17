@@ -8,6 +8,7 @@ class BoardController {
     protected $board;
     protected $boardManager;
     protected $game;
+    protected $gameInstruction;
 
     function __construct() {
         $this->storage = new SessionStorage();
@@ -23,6 +24,7 @@ class BoardController {
             $this->board = $boardGenerator->generateBoard();
             $this->boardManager = new BoardManager($this->board);
             $this->game = new Game();
+            $this->gameInstruction = $this->game->getGameExplanation();
 
             $this->storage->storeParameters([
                 'board' => $this->board,

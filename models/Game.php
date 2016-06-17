@@ -12,10 +12,12 @@ class Game {
     
     private $moves;
     private $state;
+    private $gameExplanation;
     
     public function __construct() {
         $this->moves = 0;
         $this->state = self::IDLE;
+        $this->gameExplanation = 'Enter coordinates (row, col), e.g. A5';
     }
     
     public function getMoves() {
@@ -36,6 +38,14 @@ class Game {
 
     public function setState($state) {
         $this->state = $state;
+    }
+    
+    function getGameExplanation() {
+        return $this->gameExplanation;
+    }
+
+    function setGameExplanation($gameExplanation) {
+        $this->gameExplanation = $gameExplanation;
     }
 
 }

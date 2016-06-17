@@ -1,6 +1,6 @@
 <?php
 class ConsoleStorage implements Storage {
-
+    //TODO
     public function storeParameters(array $array)
     {
         foreach ($array as $name => $value) {

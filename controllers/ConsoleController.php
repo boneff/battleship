@@ -15,20 +15,24 @@ class ConsoleController extends BoardController {
     function __construct() {
         $this->storage = new ConsoleStorage();
         $this->output = '';
-        $this->coordinates = getopt('c:') != false  ? getopt('c:') : '';
-        $this->view = 'templates/webView.php';
+        $this->coordinates = trim(fgets(STDIN, 1024));
+        $this->view = 'templates/consoleView.php';
     }
 
     public function index() {
-        parent::index();
-
-        if (count($this->board->getBoardShips()) > 0) {
-            $output = $this->output;
-            require_once $this->view;
-        } else {
-            $output = $this->game->getMoves();
-            require_once 'templates/webFinish.php';
-            $this->storage->destroy();
+        parent::init();
+        
+        while (($this->board->getBoardShips()) > 0) {
+            parent::index();
+            if (count($this->board->getBoardShips()) > 0) {
+                $output = $this->output;
+                $output .= $this->gameInstruction;
+                require_once $this->view;
+            } else {
+                $output = $this->game->getMoves();
+                require_once 'templates/consoleView.php';
+                $this->storage->destroy();
+            }
         }
     }
 
