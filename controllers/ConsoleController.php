@@ -21,19 +21,20 @@ class ConsoleController extends BoardController {
 
     public function index() {
         parent::init();
-       
+
         while (($this->board->getBoardShips()) > 0) {
             $this->coordinates = trim(fgets(STDIN, 1024));
             parent::index();
             if (count($this->board->getBoardShips()) > 0) {
                 $output = $this->output;
-                $output .= $this->gameInstruction;           
+                $output .= $this->gameInstruction . ' ';
                 // use require instead of require once, so view is redrawn in console 
                 require $this->view;
             } else {
                 $output = "Game finished in " . $this->game->getMoves() . " moves!";
-                require 'templates/consoleView.php';
+                require $this->view;
                 $this->storage->destroy();
+                exit;
             }
         }
     }
