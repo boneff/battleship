@@ -22,7 +22,13 @@ class BoardManager
     {
         return $this->board;
     }
-
+    
+    /**
+     * Method for drawing the board
+     * 
+     * @param bool $showHint
+     * @return type
+     */
     public function drawBoard($showHint = false)
     {
         $arrAxisLabels = Helper::generateBoardLabels();
@@ -49,6 +55,8 @@ class BoardManager
     }
 
     /**
+     * Open position on current board
+     * 
      * @param int x
      * @param int y
      */

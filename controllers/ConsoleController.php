@@ -15,28 +15,46 @@ class ConsoleController extends BoardController {
     function __construct() {
         $this->storage = new ConsoleStorage();
         $this->output = '';
-        $this->coordinates = trim(fgets(STDIN, 1024));
+        $this->coordinates = '';
         $this->view = 'templates/consoleView.php';
     }
 
     public function index() {
         parent::init();
-
+        parent::index();
+        $this->output .= $this->gameInstruction . ' ' . PHP_EOL;
+        $this->showView($this->output);
+        
         while (($this->board->getBoardShips()) > 0) {
+            // get coordinates from console input
             $this->coordinates = trim(fgets(STDIN, 1024));
+            // get them processed in parent index method
             parent::index();
+            // check whether all ships are sunk and display board if not
+            // else display the end of the game 
             if (count($this->board->getBoardShips()) > 0) {
-                $output = $this->output;
-                $output .= $this->gameInstruction . ' ';
-                // use require instead of require once, so view is redrawn in console 
-                require $this->view;
+                $this->output .= $this->gameInstruction . ' ' . PHP_EOL;
+                $this->showView($this->output);
             } else {
-                $output = "Game finished in " . $this->game->getMoves() . " moves!";
-                require $this->view;
+                $this->output = 'Game finished in ' . $this->game->getMoves() . ' moves! ' . PHP_EOL;
+                $this->showView($this->output);
+                // empty storage and stop script
                 $this->storage->destroy();
                 exit;
             }
         }
+    }
+    
+    /**
+     * Send data to view and show it
+     * 
+     * @param type $data
+     */
+    private function showView($data) {
+        // assign data to a local variable used in the view
+        $output = $data;
+        // use require instead of require once, so view is redrawn in console 
+        require $this->view;
     }
 
 }

@@ -87,11 +87,7 @@ class BoardController {
             'game' => $this->game,
         ]);
         $this->output .= PHP_EOL . $this->boardManager->drawBoard($hint);
+       
 
-
-    }
-
-    protected function displayView($view) {
-        require_once $view;
     }
 }
