@@ -21,7 +21,7 @@
 
     $frontController = new FrontController($options);
     $frontController->run();
-?>
+    $frontController->run();
 
 
 
