@@ -33,7 +33,7 @@ class WebController extends BoardController
             require_once $this->view;
         } else {
             $output = $this->game->getMoves();
-            require_once __DIR__ . '/../../templates/webView.php';
+            require_once __DIR__ . '/../../templates/webFinish.php';
             $this->storage->destroy();
         }
     }

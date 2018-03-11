@@ -15,7 +15,7 @@ class ConsoleController extends BoardController
         $this->storage = new ConsoleStorage();
         $this->output = '';
         $this->coordinates = '';
-        $this->view = __DIR__ . '/../../templates/webView.php';
+        $this->view = __DIR__ . '/../../templates/consoleView.php';
     }
 
     public function index() {
