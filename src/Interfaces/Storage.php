@@ -1,4 +1,7 @@
 <?php
+
+namespace Battleships\Interfaces;
+
 /**
  * Created by PhpStorm.
  * User: boneff

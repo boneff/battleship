@@ -1,4 +1,9 @@
 <?php
+
+namespace Battleships\Models;
+
+use Battleships\Config\Config;
+
 /**
  * Description of BoardGenerator
  *
@@ -6,7 +11,8 @@
  * @parameters array $config
  * @return Board $board
  */
-class BoardGenerator { 
+class BoardGenerator
+{
     /**
      *
      * @var Board 
@@ -19,10 +25,10 @@ class BoardGenerator {
     private $config;
     private $boardWidth;
     private $boardHeight;
-    
+
     /**
-     * 
-     * @param array $config
+     * BoardGenerator constructor.
+     * @param Config $config
      */
     public function __construct(Config $config) {
         $this->config = $config;

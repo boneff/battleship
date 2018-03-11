@@ -1,11 +1,26 @@
 <?php
 
-class BoardController {
+namespace Battleships\Controllers;
+
+use Battleships\Helpers\BoardHelper;
+use Battleships\Models\BoardMessage;
+use Battleships\Models\BoardPosition;
+use Battleships\Storage\SessionStorage;
+use Battleships\Models\BoardGenerator;
+use Battleships\Config\Config;
+use Battleships\Controllers\BoardManager;
+use Battleships\Models\Game;
+
+class BoardController
+{
     protected $storage;
     protected $output;
     protected $coordinates;
     protected $view;
     protected $board;
+    /**
+     * @var BoardManager
+     */
     protected $boardManager;
     protected $game;
     protected $gameInstruction;
@@ -46,7 +61,7 @@ class BoardController {
         $hint = ($coordinates == "show") ? true : false;
 
         if (strlen($coordinates) >= 2) {
-            $coordinatesInRange = Helper::checkCoordinatesInRange($coordinates);
+            $coordinatesInRange = BoardHelper::checkCoordinatesInRange($coordinates);
 
             if ($coordinatesInRange !== false) {
                 $isHit = $this->boardManager->openPosition($coordinatesInRange['x'], $coordinatesInRange['y']);

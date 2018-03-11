@@ -6,8 +6,12 @@
  * Time: 10:09
  */
 
-class SessionStorage implements Storage {
+namespace Battleships\Storage;
 
+use Battleships\Interfaces\Storage;
+
+class SessionStorage implements Storage
+{
     public function storeParameters(array $array) {
         foreach ($array as $name => $value) {
             $_SESSION[$name] = $value;

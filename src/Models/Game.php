@@ -1,11 +1,14 @@
 <?php
 
+namespace Battleships\Models;
+
 /**
  * Description of Game
  *
  * @author boneff
  */
-class Game {
+class Game
+{
     const IDLE = 0;
     const RUNNING = 1;
     const FINISHED = 2;

@@ -1,2 +1,2 @@
 <?php
-echo $output;
+    echo $output;

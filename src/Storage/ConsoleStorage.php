@@ -1,6 +1,11 @@
 <?php
-class ConsoleStorage implements Storage {
-    
+
+namespace Battleships\Storage;
+
+use Battleships\Interfaces\Storage;
+
+class ConsoleStorage implements Storage
+{
     private $storage = [];
     //TODO
     public function storeParameters(array $array)

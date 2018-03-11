@@ -1,5 +1,9 @@
 <?php
 
+namespace Battleships\Controllers;
+
+use Battleships\Storage\SessionStorage;
+
 /**
  * Description of WebController
  *
@@ -17,7 +21,7 @@ class WebController extends BoardController
         parent::__construct();
         $this->storage = new SessionStorage();
         $this->coordinates = isset($_REQUEST['coordinates']) ? $_REQUEST['coordinates'] : '';
-        $this->view = 'templates/webView.php';
+        $this->view = __DIR__ . '/../../templates/webView.php';
     }
 
     public function index()
@@ -29,7 +33,7 @@ class WebController extends BoardController
             require_once $this->view;
         } else {
             $output = $this->game->getMoves();
-            require_once 'templates/webFinish.php';
+            require_once __DIR__ . '/../../templates/webView.php';
             $this->storage->destroy();
         }
     }

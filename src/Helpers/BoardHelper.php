@@ -1,12 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: boneff
- * Date: 14.6.2016 г.
- * Time: 15:16
- */
 
-class Helper {
+namespace Battleships\Helpers;
+
+use Battleships\Config\Config;
+
+class BoardHelper
+{
     public static function generateBoardLabels() {
         // return 2 arrays with numbers and letters - used to label the board fields
         // chr(65) - returns uppercase A

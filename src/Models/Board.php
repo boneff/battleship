@@ -1,9 +1,11 @@
 <?php
-/**
- * Description of Board
- 
- * @author boneff
- */
+
+namespace Battleships\Models;
+
+use Battleships\Config\Config;
+use Battleships\Models\BoardPosition;
+use Battleships\Models\Ship;
+
 class Board {
     private $width;
     private $height;

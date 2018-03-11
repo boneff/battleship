@@ -1,5 +1,9 @@
 <?php
-class Config {
+
+namespace Battleships\Config;
+
+class Config
+{
 
     private static $_instance = null;
 

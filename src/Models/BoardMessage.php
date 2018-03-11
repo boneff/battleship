@@ -1,10 +1,14 @@
 <?php
+
+namespace Battleships\Models;
+
 /**
  * Description of BoardMessage
  *
  * @author boneff
  */
-class BoardMessage {
+class BoardMessage
+{
    const MISS  = ' *** Miss *** ';
    const HIT   = ' *** Hit *** ';
    const SUNK  = ' *** Sunk *** ';

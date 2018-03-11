@@ -1,10 +1,14 @@
 <?php
+
+namespace Battleships\Models;
+
 /**
  * Description of BoardPosition
  *
  * @author boneff
  */
-class BoardPosition {
+class BoardPosition
+{
     const FREE = 1;
     const OCCUPPIED = 2;
     

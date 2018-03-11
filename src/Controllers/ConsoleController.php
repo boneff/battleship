@@ -1,12 +1,11 @@
 <?php
 
-/**
- * Description of ConsoleController
- *
- * @author boneff
- */
-class ConsoleController extends BoardController {
+namespace Battleships\Controllers;
 
+use Battleships\Storage\ConsoleStorage;
+
+class ConsoleController extends BoardController
+{
     protected $storage;
     protected $output;
     protected $coordinates;
@@ -16,7 +15,7 @@ class ConsoleController extends BoardController {
         $this->storage = new ConsoleStorage();
         $this->output = '';
         $this->coordinates = '';
-        $this->view = 'templates/consoleView.php';
+        $this->view = __DIR__ . '/../../templates/webView.php';
     }
 
     public function index() {

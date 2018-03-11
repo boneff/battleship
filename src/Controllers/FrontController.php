@@ -1,18 +1,18 @@
 <?php
 
-/**
- * Description of FrontController
- *
- * @author boneff
- */
-class FrontController{
+namespace Battleships\Controllers;
+
+use Psr\Log\InvalidArgumentException;
+
+class FrontController
+{
     const DEFAULT_CONTROLLER = "Web";
     const DEFAULT_ACTION     = "index";
     
     protected $controller    = self::DEFAULT_CONTROLLER;
     protected $action        = self::DEFAULT_ACTION;
     protected $params        = array();
-    protected $basePath      = "controllers/";
+    protected $basePath      = "Controllers/";
 
     public function __construct(array $options) {
         if (isset($options["controller"])) {
@@ -27,7 +27,7 @@ class FrontController{
     }
 
     public function setController($controller) {
-        $controller = ucfirst(strtolower($controller)) . "Controller";
+        $controller = 'Battleships\\Controllers\\' . ucfirst(strtolower($controller)) . "Controller";
         if (!class_exists($controller)) {
             throw new InvalidArgumentException(
                 "The action controller '$controller' has not been defined.");
@@ -37,7 +37,7 @@ class FrontController{
     }
     
     public function setAction($action) {
-        $reflector = new ReflectionClass($this->controller);
+        $reflector = new \ReflectionClass($this->controller);
         if (!$reflector->hasMethod($action)) {
             throw new InvalidArgumentException(
                 "The controller action '$action' has been not defined.");

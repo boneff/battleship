@@ -1,10 +1,14 @@
 <?php
+
+namespace Battleships\Models;
+
 /**
  * Description of Ship 
  *
  * @author boneff
  */
-class Ship {
+class Ship
+{
     const VERTICAL_ORIENTATION = 1;
     const HORIZONTAL_ORIENTATION = 2;
     

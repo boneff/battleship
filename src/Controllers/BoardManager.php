@@ -1,10 +1,11 @@
 <?php
 
-/**
- * Description of BoardController
- *
- * @author boneff
- */
+namespace Battleships\Controllers;
+
+use Battleships\Helpers\BoardHelper;
+use Battleships\Models\Board;
+use Battleships\Models\BoardPosition;
+
 class BoardManager
 {
     /**
@@ -31,7 +32,7 @@ class BoardManager
      */
     public function drawBoard($showHint = false)
     {
-        $arrAxisLabels = Helper::generateBoardLabels();
+        $arrAxisLabels = BoardHelper::generateBoardLabels();
         $output = '  ' . implode(' ', $arrAxisLabels['y']) . PHP_EOL;
 
         for ($i = 0; $i < $this->board->getWidth(); $i++) {
