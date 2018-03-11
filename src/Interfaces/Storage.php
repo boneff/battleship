@@ -9,7 +9,8 @@ namespace Battleships\Interfaces;
  * Time: 10:07
  */
 
-interface Storage {
+interface Storage
+{
     public function storeParameter($paramName, $paramValue);
     public function storeParameters(array $parameters);
     public function getParameterFromStorage($name);

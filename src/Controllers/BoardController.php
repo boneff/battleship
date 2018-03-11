@@ -25,15 +25,17 @@ class BoardController
     protected $game;
     protected $gameInstruction;
 
-    function __construct() {
+    public function __construct()
+    {
         $this->storage = new SessionStorage();
         $this->output = '';
         $this->coordinates = isset($_REQUEST['coordinates']) ? $_REQUEST['coordinates'] : '';
         $this->view = 'templates/webView.php';
     }
 
-    public function init() {
-        if($this->storage->getParameterFromStorage('board') == false) {
+    public function init()
+    {
+        if ($this->storage->getParameterFromStorage('board') == false) {
             $boardGenerator = new BoardGenerator(Config::instance());
 
             $this->board = $boardGenerator->generateBoard();
@@ -53,9 +55,10 @@ class BoardController
         }
     }
 
-    public function index() {
+    public function index()
+    {
         $this->init();
-        $isHit = NULL;
+        $isHit = null;
         // check user input
         $coordinates = $this->coordinates;
         $hint = ($coordinates == "show") ? true : false;
@@ -72,10 +75,10 @@ class BoardController
         }
 
         switch ($isHit) {
-            case BoardPosition::FREE :
+            case BoardPosition::FREE:
                 $this->output .= BoardMessage::MISS;
                 break;
-            case BoardPosition::OCCUPPIED :
+            case BoardPosition::OCCUPPIED:
                 foreach ($this->board->getBoardShips() as $key => $ship) {
                     /**
                      * @var Ship $ship
@@ -102,7 +105,5 @@ class BoardController
             'game' => $this->game,
         ]);
         $this->output .= PHP_EOL . $this->boardManager->drawBoard($hint);
-       
-
     }
 }

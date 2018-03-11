@@ -1,4 +1,30 @@
 parameters:
-    git_dir: .
-    bin_dir: vendor/bin
-    tasks: null
+  bin_dir: "./vendor/bin"
+  git_dir: "."
+  process_timeout: 120
+  tasks:
+      phpcs:
+        standard: PSR2
+        ignore_patterns:
+          - "spec/*Spec.php"
+          - "test/*.php"
+        metadata:
+          priority: 300apt
+#      phpunit:
+#        metadata:
+#          priority: 100
+      composer:
+        no_check_lock: true
+      yamllint:
+        ignore_patterns:
+          - "#test/(.*).yml#"
+      phplint: ~
+      phpparser:
+        visitors:
+          no_exit_statements: ~
+          #Object calasthenics http://williamdurand.fr/2013/06/03/object-calisthenics/
+          #never_use_else: ~
+          forbidden_function_calls:
+            blacklist: [var_dump, eval]
+        metadata:
+          priority: 100000

@@ -16,7 +16,7 @@ class WebController extends BoardController
     protected $coordinates;
     protected $view;
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->storage = new SessionStorage();

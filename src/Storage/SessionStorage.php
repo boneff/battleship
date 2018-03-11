@@ -12,23 +12,26 @@ use Battleships\Interfaces\Storage;
 
 class SessionStorage implements Storage
 {
-    public function storeParameters(array $array) {
+    public function storeParameters(array $array)
+    {
         foreach ($array as $name => $value) {
             $_SESSION[$name] = $value;
         }
     }
 
-    public function storeParameter($paramName, $paramValue) {
+    public function storeParameter($paramName, $paramValue)
+    {
         $_SESSION[$paramName] = $paramValue;
     }
 
 
-    public function getParameterFromStorage($name) {
+    public function getParameterFromStorage($name)
+    {
         return !empty($_SESSION[$name]) ? $_SESSION[$name] : false;
     }
 
-    public function destroy() {
+    public function destroy()
+    {
         session_destroy();
     }
-
 }

@@ -6,8 +6,9 @@ use Battleships\Controllers\FrontController;
 
 class FrontControllerFactory
 {
-    public static function init(string $clientMode) {
-        if($clientMode == "cli") {
+    public static function init(string $clientMode)
+    {
+        if ($clientMode == "cli") {
             $options = [
                 "controller" => "Console",
                 "action"     => "index",

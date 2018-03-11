@@ -26,8 +26,8 @@ class ConsoleStorage implements Storage
         return isset($this->storage[$name]) ? $this->storage[$name] : '';
     }
 
-    public function destroy() {
+    public function destroy()
+    {
         $this->storage = [];
     }
-
 }

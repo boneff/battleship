@@ -4,8 +4,7 @@ namespace Battleships\Config;
 
 class Config
 {
-
-    private static $_instance = null;
+    private static $instance = null;
 
     private $applicationName = 'Battleships';
     private $boardXLabelType = 'letters';
@@ -27,15 +26,16 @@ class Config
      *
      * @return self
      */
-    public static function instance() {
-        if (self::$_instance === null) {
-            self::$_instance = new self;
+    public static function instance()
+    {
+        if (self::$instance === null) {
+            self::$instance = new self;
         }
-        return self::$_instance;
+        return self::$instance;
     }
 
-    private function __construct() {
-
+    private function __construct()
+    {
     }
 
     /**
@@ -77,7 +77,4 @@ class Config
     {
         return $this->ships;
     }
-
-
-
 }

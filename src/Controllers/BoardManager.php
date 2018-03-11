@@ -26,7 +26,7 @@ class BoardManager
     
     /**
      * Method for drawing the board
-     * 
+     *
      * @param bool $showHint
      * @return type
      */
@@ -39,15 +39,9 @@ class BoardManager
             $output .= $arrAxisLabels['x'][$i] . ' ';
             for ($j = 0; $j < $this->board->getHeight(); $j++) {
                 $newRow = ($j == $this->board->getWidth() - 1) ? PHP_EOL : ' ';
+                /** @var $boardPosition BoardPosition */
                 $boardPosition = $this->board->getBoardPosition($i, $j);
-                if ($showHint == true) {
-                    $output .= ($boardPosition->getStatus() == BoardPosition::FREE) ? ' ' : 'x';
-                } else {
-                    $output .= (($boardPosition->getStatus() == BoardPosition::FREE && $boardPosition->getIsClicked() == true)) ? '-' : '';
-                    $output .= (($boardPosition->getStatus() == BoardPosition::OCCUPPIED && $boardPosition->getIsClicked() == true)) ? 'x' : '';
-                    $output .= ($boardPosition->getIsClicked() == false) ? '.' : '';
-                }
-
+                $output .= $this->getBoardContentByPosition($boardPosition, $showHint);
                 $output .= $newRow;
             }
         }
@@ -57,9 +51,10 @@ class BoardManager
 
     /**
      * Open position on current board
-     * 
-     * @param int x
-     * @param int y
+     *
+     * @param $x
+     * @param $y
+     * @return int
      */
     public function openPosition($x, $y)
     {
@@ -71,5 +66,26 @@ class BoardManager
         $this->board->setBoardPosition($boardPosition);
 
         return $boardPosition->getStatus();
+    }
+
+    /**
+     * @param BoardPosition $boardPosition
+     * @param bool $showHint
+     * @return string
+     */
+    private function getBoardContentByPosition(BoardPosition $boardPosition, $showHint = false)
+    {
+        $output = '';
+        if ($showHint == true) {
+            $output .= ($boardPosition->getStatus() == BoardPosition::FREE) ? ' ' : 'x';
+        } else {
+            $output .= (($boardPosition->getStatus() == BoardPosition::FREE
+                && $boardPosition->getIsClicked() == true)) ? '-' : '';
+            $output .= (($boardPosition->getStatus() == BoardPosition::OCCUPPIED
+                && $boardPosition->getIsClicked() == true)) ? 'x' : '';
+            $output .= ($boardPosition->getIsClicked() == false) ? '.' : '';
+        }
+
+        return $output;
     }
 }

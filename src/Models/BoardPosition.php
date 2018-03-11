@@ -18,11 +18,12 @@ class BoardPosition
     private $status = self::FREE;
     
     /**
-     * 
+     *
      * @param int $coordinateX
      * @param int $coordinateY
      */
-    public function __construct($coordinateX, $coordinateY) {
+    public function __construct($coordinateX, $coordinateY)
+    {
         $this->coordinateX = $coordinateX;
         $this->coordinateY = $coordinateY;
     }
@@ -30,33 +31,39 @@ class BoardPosition
     /**
      * @return bool
      */
-    public function getIsClicked() {
+    public function getIsClicked()
+    {
         return $this->isClicked;
     }
 
     /**
      * @return int
      */
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->status;
     }
 
     /**
      * @param bool $isClicked
      */
-    public function setIsClicked($isClicked) {
+    public function setIsClicked($isClicked)
+    {
         $this->isClicked = $isClicked;
     }
 
-    public function setStatus($status) {
+    public function setStatus($status)
+    {
         $this->status = $status;
     }
     
-    public function getCoordinateX() {
+    public function getCoordinateX()
+    {
         return $this->coordinateX;
     }
 
-    public function getCoordinateY() {
+    public function getCoordinateY()
+    {
         return $this->coordinateY;
-    }    
+    }
 }

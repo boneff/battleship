@@ -6,7 +6,8 @@ use Battleships\Config\Config;
 
 class BoardHelper
 {
-    public static function generateBoardLabels() {
+    public static function generateBoardLabels()
+    {
         // return 2 arrays with numbers and letters - used to label the board fields
         // chr(65) - returns uppercase A
         if (Config::instance()->getBoardXLabelType() == 'numbers') {
@@ -23,7 +24,8 @@ class BoardHelper
         ];
     }
 
-    public static function checkCoordinatesInRange($coordinates) {
+    public static function checkCoordinatesInRange($coordinates)
+    {
         $arrAxisLabels = self::generateBoardLabels();
 
         $x = strtoupper($coordinates[0]);

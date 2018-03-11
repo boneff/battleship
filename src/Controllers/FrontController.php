@@ -14,7 +14,8 @@ class FrontController
     protected $params        = array();
     protected $basePath      = "Controllers/";
 
-    public function __construct(array $options) {
+    public function __construct(array $options)
+    {
         if (isset($options["controller"])) {
             $this->setController($options["controller"]);
         }
@@ -26,32 +27,38 @@ class FrontController
         }
     }
 
-    public function setController($controller) {
+    public function setController($controller)
+    {
         $controller = 'Battleships\\Controllers\\' . ucfirst(strtolower($controller)) . "Controller";
         if (!class_exists($controller)) {
             throw new InvalidArgumentException(
-                "The action controller '$controller' has not been defined.");
+                "The action controller '$controller' has not been defined."
+            );
         }
         $this->controller = $controller;
         return $this;
     }
     
-    public function setAction($action) {
+    public function setAction($action)
+    {
         $reflector = new \ReflectionClass($this->controller);
         if (!$reflector->hasMethod($action)) {
             throw new InvalidArgumentException(
-                "The controller action '$action' has been not defined.");
+                "The controller action '$action' has been not defined."
+            );
         }
         $this->action = $action;
         return $this;
     }
     
-    public function setParams(array $params) {
+    public function setParams(array $params)
+    {
         $this->params = $params;
         return $this;
     }
 
-    public function run() {
+    public function run()
+    {
         call_user_func_array(array(new $this->controller, $this->action), $this->params);
     }
 }

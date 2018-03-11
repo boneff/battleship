@@ -8,11 +8,23 @@
             "email": "boneff.i@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "ocramius/proxy-manager": "^2.1",
+        "nikic/php-parser": "^4.0",
+        "friendsofphp/php-cs-fixer": "^2.10"
+    },
     "require-dev": {
-        "phpro/grumphp": "^0.14.0"
+        "phpro/grumphp": "^0.14.0",
+        "phpunit/phpunit": "^6.5",
+        "squizlabs/php_codesniffer": "*",
+        "jakub-onderka/php-parallel-lint": "^1.0"
     },
     "autoload": {
         "psr-4": {"Battleships\\": "src/"}
+    },
+    "extra": {
+        "grumphp": {
+            "config-default-path": "grumphp.yml"
+        }
     }
 }
