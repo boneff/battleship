@@ -22,6 +22,11 @@
     "autoload": {
         "psr-4": {"Battleships\\": "src/"}
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Battleships\\Tests\\": "tests/unit/"
+        }
+    },
     "extra": {
         "grumphp": {
             "config-default-path": "grumphp.yml"

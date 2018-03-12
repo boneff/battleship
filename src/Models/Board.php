@@ -86,4 +86,32 @@ class Board
     {
         $this->boardShips[] = $boardShip;
     }
+
+
+    public function setBoardShips(array $ships)
+    {
+        foreach ($ships as $ship) {
+            if ($ship instanceof Ship) {
+                $this->boardShips[] = $ship;
+            }
+        }
+    }
+
+
+    public function findFreeStartingPosition()
+    {
+        $startCoordinateX = rand(0, $this->getWidth() -1);
+        $startCoordinateY = rand(0, $this->getHeight() -1);
+
+        /** @var $boardPosition BoardPosition */
+        $boardPosition = $this->getBoardPosition($startCoordinateX, $startCoordinateY);
+        if ($boardPosition->getStatus() == BoardPosition::FREE) {
+            return [
+                'x' => $startCoordinateX,
+                'y' => $startCoordinateY,
+            ];
+        } else {
+            return $this->findFreeStartingPosition();
+        }
+    }
 }

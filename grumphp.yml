@@ -10,9 +10,9 @@ parameters:
           - "test/*.php"
         metadata:
           priority: 300apt
-#      phpunit:
-#        metadata:
-#          priority: 100
+      phpunit:
+        metadata:
+          priority: 100
       composer:
         no_check_lock: true
       yamllint:

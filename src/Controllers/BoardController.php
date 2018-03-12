@@ -2,11 +2,11 @@
 
 namespace Battleships\Controllers;
 
+use Battleships\Factories\BoardFactory;
 use Battleships\Helpers\BoardHelper;
 use Battleships\Models\BoardMessage;
 use Battleships\Models\BoardPosition;
 use Battleships\Storage\SessionStorage;
-use Battleships\Models\BoardGenerator;
 use Battleships\Config\Config;
 use Battleships\Controllers\BoardManager;
 use Battleships\Models\Game;
@@ -36,9 +36,8 @@ class BoardController
     public function init()
     {
         if ($this->storage->getParameterFromStorage('board') == false) {
-            $boardGenerator = new BoardGenerator(Config::instance());
+            $this->board = BoardFactory::init(Config::instance());
 
-            $this->board = $boardGenerator->generateBoard();
             $this->boardManager = new BoardManager($this->board);
             $this->game = new Game();
             $this->gameInstruction = $this->game->getGameExplanation();
