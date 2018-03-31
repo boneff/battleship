@@ -36,7 +36,8 @@ class BoardController
     public function init()
     {
         if ($this->storage->getParameterFromStorage('board') == false) {
-            $this->board = BoardFactory::init(Config::instance());
+            $boardFactory = new BoardFactory(Config::instance());
+            $this->board = $boardFactory->make();
 
             $this->boardManager = new BoardManager($this->board);
             $this->game = new Game();

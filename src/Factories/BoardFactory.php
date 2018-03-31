@@ -14,12 +14,26 @@ use Battleships\Models\ShipGenerator;
 
 class BoardFactory
 {
-    public static function init(Config $config)
+    private $config;
+
+    /**
+     * BoardFactory constructor.
+     * @param Config $config
+     */
+    public function __construct(Config $config)
     {
-        $boardGenerator = new BoardGenerator($config);
+        $this->config = $config;
+    }
+
+    /**
+     * @return \Battleships\Models\Board
+     */
+    public function make()
+    {
+        $boardGenerator = new BoardGenerator($this->config);
         $board = $boardGenerator->generateBoard();
 
-        $shipGenerator = new ShipGenerator($config, $board);
+        $shipGenerator = new ShipGenerator($this->config, $board);
         $ships = $shipGenerator->generateShips();
 
         $board->setBoardShips($ships);
