@@ -2,9 +2,7 @@
 
 namespace Battleships\Storage;
 
-use Battleships\Interfaces\Storage;
-
-class ConsoleStorage implements Storage
+class ConsoleStorage implements StorageInterface
 {
     private $storage = [];
     //TODO

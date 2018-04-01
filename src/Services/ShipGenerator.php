@@ -1,14 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: boneff
- * Date: 3/12/18
- * Time: 1:28 AM
- */
 
-namespace Battleships\Models;
+namespace Battleships\Services;
 
 use Battleships\Config\Config;
+use Battleships\Models\Board;
+use Battleships\Models\BoardPosition;
+use Battleships\Models\Ship;
 
 class ShipGenerator
 {

@@ -2,108 +2,68 @@
 
 namespace Battleships\Controllers;
 
-use Battleships\Factories\BoardFactory;
 use Battleships\Helpers\BoardHelper;
+use Battleships\Input\InputInterface;
 use Battleships\Models\BoardMessage;
-use Battleships\Models\BoardPosition;
-use Battleships\Storage\SessionStorage;
-use Battleships\Config\Config;
-use Battleships\Controllers\BoardManager;
-use Battleships\Models\Game;
+use Battleships\Output\OutputInterface;
+use Battleships\Services\BoardManager;
+use Battleships\Validators\ValidatorInterface;
 
 class BoardController
 {
-    protected $storage;
     protected $output;
-    protected $coordinates;
-    protected $view;
-    protected $board;
+    protected $input;
+
     /**
      * @var BoardManager
      */
     protected $boardManager;
-    protected $game;
-    protected $gameInstruction;
+    protected $validator;
 
-    public function __construct()
-    {
-        $this->storage = new SessionStorage();
-        $this->output = '';
-        $this->coordinates = isset($_REQUEST['coordinates']) ? $_REQUEST['coordinates'] : '';
-        $this->view = 'templates/webView.php';
-    }
-
-    public function init()
-    {
-        if ($this->storage->getParameterFromStorage('board') == false) {
-            $boardFactory = new BoardFactory(Config::instance());
-            $this->board = $boardFactory->make();
-
-            $this->boardManager = new BoardManager($this->board);
-            $this->game = new Game();
-            $this->gameInstruction = $this->game->getGameExplanation();
-
-            $this->storage->storeParameters([
-                'board' => $this->board,
-                'boardManager' => $this->boardManager,
-                'game'  => $this->game,
-            ]);
-        } else {
-            $this->board = $this->storage->getParameterFromStorage('board');
-            $this->boardManager = $this->storage->getParameterFromStorage('boardManager');
-            $this->game = $this->storage->getParameterFromStorage('game');
-        }
+    public function __construct(
+        ValidatorInterface $validator,
+        InputInterface $input,
+        OutputInterface $output,
+        BoardManager $boardManager
+    ) {
+        $this->validator = $validator;
+        $this->output = $output;
+        $this->input = $input;
+        $this->boardManager = $boardManager;
     }
 
     public function index()
     {
-        $this->init();
+        $this->boardManager->init();
         $isHit = null;
-        // check user input
-        $coordinates = $this->coordinates;
-        $hint = ($coordinates == "show") ? true : false;
+        $input = $this->input->getInput('coordinates');
+        $hint = false;
+        $this->output->appendToOutput(BoardMessage::NONE);
 
-        if (strlen($coordinates) >= 2) {
-            $coordinatesInRange = BoardHelper::checkCoordinatesInRange($coordinates);
+        if ($this->validator->validate($input)) {
+            $hint = ($input == "show") ? true : false;
+            if ($hint == false && !empty($input)) {
+                $coordinatesInRange = BoardHelper::getCoordinatesInRange($input);
+                $boardData = $this->boardManager->updateBoardShips($coordinatesInRange['x'], $coordinatesInRange['y']);
 
-            if ($coordinatesInRange !== false) {
-                $isHit = $this->boardManager->openPosition($coordinatesInRange['x'], $coordinatesInRange['y']);
-                $this->game->incrementMoves();
-            } else {
-                $this->output = ($coordinates != "show") ? BoardMessage::ERROR : '';
+                $this->output->appendToOutput($boardData);
             }
         }
 
-        switch ($isHit) {
-            case BoardPosition::FREE:
-                $this->output .= BoardMessage::MISS;
-                break;
-            case BoardPosition::OCCUPPIED:
-                foreach ($this->board->getBoardShips() as $key => $ship) {
-                    /**
-                     * @var Ship $ship
-                     */
-                    if ($ship->checkIsHit($coordinatesInRange['x'], $coordinatesInRange['y']) !== false) {
-                        if ($ship->getIsSunk() == true) {
-                            $this->output .= BoardMessage::SUNK;
-                            $this->board->removeBoardShip($key);
-                        } else {
-                            $this->output .= BoardMessage::HIT;
-                        }
-                        break 2;
-                    }
-                }
-                break;
-            default:
-                $this->output .= BoardMessage::NONE;
-        }
+        $this->output->appendToOutput(PHP_EOL . $this->boardManager->drawBoard($hint));
 
-        // store all objects in Session again, once finished manipulating them
-        $this->storage->storeParameters([
-            'board' => $this->board,
-            'boardManager' => $this->boardManager,
-            'game' => $this->game,
-        ]);
-        $this->output .= PHP_EOL . $this->boardManager->drawBoard($hint);
+        $this->showView();
+    }
+
+    private function showView()
+    {
+        if (count($this->boardManager->getBoard()->getBoardShips()) > 0) {
+            $output = $this->output->getOutput();
+            require $this->output->getView();
+        } else {
+            $output = $this->boardManager->getGame()->getMoves();
+            require __DIR__ . '/../../templates/webFinish.php';
+            $this->boardManager->getStorage()->destroy();
+        }
     }
 }

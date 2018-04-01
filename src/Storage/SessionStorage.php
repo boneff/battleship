@@ -1,16 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: boneff
- * Date: 14.6.2016 г.
- * Time: 10:09
- */
 
 namespace Battleships\Storage;
 
-use Battleships\Interfaces\Storage;
-
-class SessionStorage implements Storage
+class SessionStorage implements StorageInterface
 {
     public function storeParameters(array $array)
     {

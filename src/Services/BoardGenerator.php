@@ -1,8 +1,10 @@
 <?php
 
-namespace Battleships\Models;
+namespace Battleships\Services;
 
 use Battleships\Config\Config;
+use Battleships\Models\Board;
+use Battleships\Models\BoardPosition;
 
 /**
  * Description of BoardGenerator

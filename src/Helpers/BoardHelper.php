@@ -24,7 +24,11 @@ class BoardHelper
         ];
     }
 
-    public static function checkCoordinatesInRange($coordinates)
+    /**
+     * @param $coordinates
+     * @return array
+     */
+    public static function getCoordinatesInRange($coordinates)
     {
         $arrAxisLabels = self::generateBoardLabels();
 
@@ -33,6 +37,6 @@ class BoardHelper
         $keyX = array_search($x, $arrAxisLabels['x']);
         $keyY = array_search($y, $arrAxisLabels['y']);
 
-        return ($keyX !== false && $keyY !== false) ? ['x' => $keyX, 'y' => $keyY ] : false;
+        return ($keyX !== false && $keyY !== false) ? ['x' => $keyX, 'y' => $keyY ] : [];
     }
 }
